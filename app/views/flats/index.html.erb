@@ -27,7 +27,9 @@
 
   <div class="row">
     <div class="col">
-      <%= link_to "Ajouter un nouvel appartement", new_flat_path %>
+      <% if policy(Flat).create? %>
+        <%= link_to "Ajouter un nouvel appartement", new_flat_path %>
+      <% end %>
     </div>
   </div>
 </div>

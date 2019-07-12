@@ -1,13 +1,9 @@
 class FlatsController < ApplicationController
   skip_before_action :authenticate_user!, only: [ :index, :show ]
-  before_action :set_flat, only: [:show, :edit, :destroy]
+  before_action :set_flat, only: [:show, :edit, :update, :destroy]
 
   def index
-    @flats = Flat.all
-  end
-
-  def mine
-    @flats = Flat.where(user: current_user)
+    @flats = policy_scope(Flat).order(created_at: :desc)
   end
 
   def show
@@ -15,10 +11,12 @@ class FlatsController < ApplicationController
 
   def new
     @flat = Flat.new
+    authorize @flat
   end
 
   def create
-    @flat = Flat.new(flat_params)
+    @flat = current_user.restaurants.build(flat_params)
+    authorize @flat
     @flat.user = current_user
     if @flat.save
       redirect_to flat_path(@flat)
@@ -32,6 +30,7 @@ class FlatsController < ApplicationController
 
   def update
     @flat.update(flat_params)
+    redirect_to flat_path(@flat)
   end
 
   def destroy
@@ -43,6 +42,7 @@ class FlatsController < ApplicationController
 
   def set_flat
     @flat = Flat.find(params[:id])
+    authorize @flat
   end
 
   def flat_params

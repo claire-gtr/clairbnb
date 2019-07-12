@@ -3,9 +3,15 @@
     <div class="col">
       <h2><%= @flat.title %></h2>
       <p><%= @flat.description %></p>
-      <%= link_to "Supprimer cet appartement", flat_path(@flat),
+      <% if policy(@flat).update? %>
+        <%= link_to "Modifier cet appartement", edit_flat_path(@flat) %>
+      <% end %>
+
+       <% if policy(@flat).destroy? %>
+        <%= link_to "Supprimer cet appartement", flat_path(@flat),
         method: :delete,
         data: { confirm: "Are you sure?" }  %>
+      <% end %>
       <%= link_to "Retour à tous les appartements", root_path %>
 
     </div>
