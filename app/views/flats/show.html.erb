@@ -1,0 +1,13 @@
+<div class="container">
+  <div class="row">
+    <div class="col">
+      <h2><%= @flat.title %></h2>
+      <p><%= @flat.description %></p>
+      <%= link_to "Supprimer cet appartement", flat_path(@flat),
+        method: :delete,
+        data: { confirm: "Are you sure?" }  %>
+      <%= link_to "Retour à tous les appartements", root_path %>
+
+    </div>
+  </div>
+</div>
