@@ -15,7 +15,7 @@ class FlatsController < ApplicationController
   end
 
   def create
-    @flat = current_user.restaurants.build(flat_params)
+    @flat = current_user.flats.build(flat_params)
     authorize @flat
     @flat.user = current_user
     if @flat.save
@@ -46,6 +46,6 @@ class FlatsController < ApplicationController
   end
 
   def flat_params
-    params.require(:flat).permit(:title, :description)
+    params.require(:flat).permit(:title, :description, :photo)
   end
 end

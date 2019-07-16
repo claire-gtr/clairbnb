@@ -3,4 +3,5 @@ class Flat < ApplicationRecord
   has_many :bookings
   validates :title, presence: true
   validates :description, presence: true
+  mount_uploader :photo, PhotoUploader
 end
